@@ -1,16 +1,12 @@
 package ru.kata.spring.boot_security.demo.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
 
-import javax.management.relation.RoleNotFoundException;
-import java.util.List;
+@Repository
+@Transactional
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-public interface RoleRepository {
-    Role getRole(String name);
-
-    Role getRoleById(long id);
-
-    List<Role> allRoles();
-
-    void addRole(Role role);
 }
