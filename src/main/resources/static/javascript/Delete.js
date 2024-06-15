@@ -7,7 +7,7 @@ function remove(e) {
     const closeButton = document.getElementById("closeDelete")
     let id = deleteForm.elements.namedItem("id").value
 
-    fetch('/delete/' + id, {
+    fetch('/api/admin/delete/' + id, {
         method: 'DELETE',
         headers: {"Content-type": "application/json; charset=UTF-8"}
     })

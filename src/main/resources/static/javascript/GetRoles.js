@@ -4,7 +4,7 @@ for (const rolesSelect of allRolesSelect) {
 }
 
 function getRoles(rolesModal) {
-    fetch('/roles')
+    fetch('/api/admin/roles')
         .then(response => response.json())
         .then(roles => {
             for (const role of roles) {

@@ -2,16 +2,17 @@ package ru.kata.spring.boot_security.demo.service.imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
-import ru.kata.spring.boot_security.demo.security.PersonDetails;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.transaction.Transactional;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void update(User user) {
         if (!user.getPassword().equals(userRepository.getById(user.getId()).getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -47,6 +49,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
@@ -72,12 +75,12 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> user = userRepository.findByEmail(username);
         if (user.isEmpty()) {
-            throw new UsernameNotFoundException(String.format("User with '%s' email not found", email));
+            throw new UsernameNotFoundException(String.format("User with '%s' email not found", username));
         }
-        return new PersonDetails(user.get());
+        return user.get();
     }
 
 }

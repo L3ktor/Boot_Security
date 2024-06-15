@@ -9,7 +9,7 @@ function getDeleteModal(id) {
 }
 
 function fillModal(id, form) {
-    fetch('/user/' + id)
+    fetch('/api/admin/user/' + id)
         .then(response => response.json())
         .then(user => {
             form.elements.namedItem("id").value = user.id;

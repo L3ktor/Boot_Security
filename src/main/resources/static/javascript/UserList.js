@@ -1,6 +1,6 @@
 function getUserList() {
     const tableBody = document.getElementById("usersTBody");
-    fetch('/users')
+    fetch('/api/admin/users')
         .then(response => response.json())
         .then(users => {
             tableBody.innerHTML = '';

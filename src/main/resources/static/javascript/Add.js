@@ -15,7 +15,7 @@ function add(e) {
             });
         }
     }
-    fetch('/add', {
+    fetch('/api/admin/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

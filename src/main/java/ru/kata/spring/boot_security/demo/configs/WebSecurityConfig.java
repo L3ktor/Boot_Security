@@ -32,10 +32,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .antMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/api/admin/**").hasAuthority("ADMIN")  // Закрыть все эндпоинты, начинающиеся с "/api/admin/", для роли "ADMIN"
+                .antMatchers("/api/user/**").hasAnyAuthority("USER", "ADMIN")  // Закрыть все эндпоинты, начинающиеся с "/api/user/", для ролей "USER" и "ADMIN"
+                .anyRequest().authenticated()  // Защитить все остальные эндпоинты аутентификацией
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("email")
                 .successHandler(successUserHandler)

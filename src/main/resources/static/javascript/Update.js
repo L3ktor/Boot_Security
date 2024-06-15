@@ -16,7 +16,7 @@ function update(e) {
             });
         }
     }
-    fetch('/update', {
+    fetch('/api/admin/update', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
